@@ -98,6 +98,9 @@ BACKLIGHT_PATH := "/sys/class/leds/lcd-backlight/brightness"
 BOARD_CHARGING_CMDLINE_NAME := "androidboot.mode"
 BOARD_CHARGING_CMDLINE_VALUE := "chargerlogo"
 
+#Charging Monitoring
+BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
+
 # Camera
 USE_CAMERA_STUB := true
 USE_DEVICE_SPECIFIC_CAMERA := true
