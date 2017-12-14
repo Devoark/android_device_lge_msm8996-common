@@ -490,10 +490,10 @@ vendor/lib64/sensors.ssc.so
 vendor/lib64/hw/sensors.vr.so
 
 # Thermal
-vendor/bin/thermal-engine
--vendor/lib/libthermalclient.so
--vendor/lib64/libthermalclient.so
-vendor/lib64/libthermalioctl.so
+#vendor/bin/thermal-engine
+#-vendor/lib/libthermalclient.so
+#-vendor/lib64/libthermalclient.so
+#vendor/lib64/libthermalioctl.so
 
 # Time services
 -vendor/app/TimeService/TimeService.apk
