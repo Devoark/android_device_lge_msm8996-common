@@ -986,6 +986,8 @@ on configure-cpuset
     write /dev/cpuset/application/background/cpus 1
     write /dev/cpuset/application/cpus 1,3
    
+import /init.thermal.rc    
+
 on property:sys.boot_completed=1
     # Disable boosting
     write /proc/sys/kernel/sched_boost 0
