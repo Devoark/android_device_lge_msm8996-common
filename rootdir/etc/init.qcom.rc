@@ -949,6 +949,8 @@ on configure-cpuset
     chown system system /dev/cpuset/camera-daemon
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
+    
+import /init.thermal.rc    
 
 on property:sys.boot_completed=1
     # Disable boosting
