@@ -47,7 +47,6 @@ ro.bt.bdaddr_path=/data/misc/bluetooth/bdaddr
 ro.camera.notify_nfc=1
 vidc.debug.perf.mode=2
 vidc.enc.dcvs.extra-buff-count=2
-media.camera.ts.monotonic=0
 persist.audio.camcorder.stereo=true
 
 # CNE and DPM
@@ -149,7 +148,7 @@ persist.radio.sw_mbn_openmkt=1
 persist.radio.sw_mbn_update=1
 persist.radio.sw_mbn_volte=1
 persist.radio.start_ota_daemon=1
-persist.volte_enalbed_by_hw=1
+persist.volte_enabled_by_hw=1
 
 # Sensors
 persist.debug.sensors.hal=e
