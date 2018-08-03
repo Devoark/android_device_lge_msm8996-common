@@ -358,21 +358,7 @@ on boot
     chown system input /sys/bus/spi/devices/spi8.1/regulator_enable
     chown system input /sys/bus/spi/devices/spi8.1/wakeup_enable
 
-    # LEDs
-    chown system system /sys/devices/virtual/lg_rgb_led/use_patterns/blink_patterns
-    chmod 0644 /sys/devices/virtual/lg_rgb_led/use_patterns/blink_patterns
-    chown system system /sys/devices/virtual/lg_rgb_led/use_patterns/input_patterns
-    chmod 0644 /sys/devices/virtual/lg_rgb_led/use_patterns/input_patterns
-    chown system system /sys/devices/virtual/lg_rgb_led/use_patterns/onoff_patterns
-    chmod 0644 /sys/devices/virtual/lg_rgb_led/use_patterns/onoff_patterns
-    chown system system /sys/devices/virtual/lg_rgb_led/use_patterns/setting
-    chmod 0644 /sys/devices/virtual/lg_rgb_led/use_patterns/setting
-    write /sys/devices/virtual/lg_rgb_led/use_patterns/setting 1
-
     write /proc/sys/net/core/netdev_max_backlog 5000
-
-on property:sys.boot_completed=1
-    write /sys/devices/virtual/lg_rgb_led/use_patterns/setting 0
 
 service conn_init /vendor/bin/hwaddrs
     class core
@@ -674,6 +660,8 @@ on property:persist.debug.trace=1
     write /proc/sys/kernel/core_pattern "/data/core/%E.%p.%e"
 
 on property:vold.decrypt=trigger_restart_framework
+    stop camera-provider-2-4
+    start camera-provider-2-4
     start qcom-c_main-sh
     start config_bt_addr
     start config_bluetooth
@@ -844,7 +832,7 @@ on property:sys.sysctl.tcp_adv_win_scale=*
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
         -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
-        -I/system/etc/wifi/wpa_supplicant_overlay.conf \
+        -I/vendor/etc/wifi/wpa_supplicant_overlay.conf \
         -O/data/misc/wifi/sockets \
         -m/data/misc/wifi/p2p_supplicant.conf \
         -puse_p2p_group_interface=1p2p_device=1 \
@@ -942,10 +930,11 @@ service vm_bms /system/bin/vm_bms
     disabled
 
 service msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
-    class main
+    socket msm_irqbalance seqpacket 660 root system
+    class core
     user root
     group root
-    disabled
+    writepid /dev/cpuset/system-background/tasks
 
 service qseeproxydaemon /system/vendor/bin/qseeproxydaemon
     class late_start

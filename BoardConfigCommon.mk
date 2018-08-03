@@ -20,8 +20,6 @@ COMMON_PATH := device/lge/msm8996-common
 # inherit from common lge
 -include device/lge/common/BoardConfigCommon.mk
 
-TARGET_SPECIFIC_HEADER_PATH := $(COMMON_PATH)/include
-
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -50,10 +48,9 @@ BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x02000000
-BOARD_RAMDISK_OFFSET     := 0x02200000
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_SOURCE := kernel/lge/msm8996
+BOARD_RAMDISK_OFFSET := 0x02200000
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+TARGET_KERNEL_SOURCE := kernel/lge/msm8996
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -171,10 +168,12 @@ BOARD_NFC_CHIPSET := pn548
 BOARD_NFC_HAL_SUFFIX := $(TARGET_BOARD_PLATFORM)
 
 # Partitions
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_EXFAT_DRIVER := sdfat
 TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USES_MKE2FS := true
 
 # pdfium
 TARGET_NEEDS_PDFIUM_BIGINT := true
@@ -187,7 +186,7 @@ BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QC_TIME_SERVICES := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.full
+TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.qcom
 
 # SELinux policies
 include device/qcom/sepolicy/sepolicy.mk
@@ -195,6 +194,9 @@ BOARD_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy
 
 # Thermal
 USE_DEVICE_SPECIFIC_THERMAL := true
+
+# QTI
+TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
 
 # Use Snapdragon LLVM, if available
 TARGET_USE_SDCLANG := true
